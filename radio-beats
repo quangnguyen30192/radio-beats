@@ -30,7 +30,7 @@ main() {
   song=$(echo "$choice" | cut -d. -f2)
   link="${LIBRARY[$index]}"
 
-  notification "$song ☕️🎶";
+  notification "$song ☕️🎶"
   play "$link"
 }
 
