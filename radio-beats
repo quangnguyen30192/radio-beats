@@ -1,0 +1,37 @@
+#!/bin/bash
+DATABASE="$HOME/dev/music.csv"
+
+notification(){
+  osascript -e "display notification \"Playing\" with title \"$1\""
+}
+
+play() {
+  mpv --no-video "$1" --title="radio-mpv" --volume=60
+}
+
+LIBRARY=()
+MENU=()
+
+parseData() {
+  count=0
+  while IFS="," read -r col1 col2
+  do
+    element="$count. $col1"
+    count=$(( count + 1 ))
+    MENU=("${MENU[@]}""$element\n")
+    LIBRARY=("${LIBRARY[@]}" "$col2")
+  done < <(tail -n +2 "$DATABASE")
+}
+
+main() {
+  parseData
+  choice=$(echo -e "${MENU[@]}" | choose -b ff79c6 -w 48 -n 7)
+  index=$(echo "$choice" | cut -d. -f1)
+  song=$(echo "$choice" | cut -d. -f2)
+  link="${LIBRARY[$index]}"
+
+  notification "$song ☕️🎶";
+  play "$link"
+}
+
+pkill -f "radio-mpv" || main
