@@ -3,6 +3,10 @@ A rofi-like menu for playing radio stations on MacOS.
 
 ![demo.jpg](demo.jpg)
 
+# Why?
+- You can summon this radio poup from anywhere using [skhd](https://github.com/koekeishiya/skhd)
+- Enjoy without youtube ads
+
 ## Dependencies
 - choose-gui (rofi/dmenu style menu for MacOS)
 - mpv (command-line video player)
